@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS manutencao (
     PRIMARY KEY (date_time, machineID, compID)
 );
 
+----------------------------------------------------------------
 
 INSERT INTO erro_tipo (nome) VALUES
 ('error1'),
@@ -83,16 +84,16 @@ INSERT INTO comp (nome) VALUES
 ('comp10');
 
 INSERT INTO maquina (model, age) VALUES
-('model3', 18),
-('model4', 7),
+('model1', 18),
+('model2', 7),
 ('model3', 8),
-('model3', 7),
-('model3', 2),
-('model3', 7),
-('model3', 20),
-('model3', 16),
 ('model4', 7),
-('model3', 10);
+('model5', 2),
+('model6', 7),
+('model7', 20),
+('model8', 16),
+('model9', 7),
+('model10', 10);
 
 INSERT INTO telemetria (date_time, machineID, volt, rotate_, pressure, vibration) VALUES 
 ('2015-01-01 09:00:00', 1, 176.2179, 418.5041, 113.0779, 45.0877),
@@ -122,13 +123,13 @@ INSERT INTO falha (date_time, machineID, compID, failure) VALUES
 ('2023-01-13 08:30:00', 1, 1, 'comp1'),
 ('2023-02-15 09:15:00', 2, 2, 'comp2'),
 ('2023-03-22 10:00:00', 3, 3, 'comp3'),
-('2023-04-30 11:45:00', 4, 4, 'comp4'),
+('2023-04-30 11:45:00', 2, 4, 'comp4'),
 ('2023-05-15 12:30:00', 5, 5, 'comp5'),
-('2023-07-10 13:15:00', 6, 6, 'comp6'),
+('2023-07-10 13:15:00', 3, 6, 'comp6'),
 ('2023-09-11 14:00:00', 7, 7, 'comp7'),
 ('2023-10-06 14:45:00', 8, 8, 'comp8'),
-('2023-11-08 15:30:00', 9, 9, 'comp9'),
-('2023-11-25 16:15:00', 10, 10, 'comp10');
+('2023-11-08 15:30:00', 3, 9, 'comp9'),
+('2023-11-25 16:15:00', 2, 10, 'comp10');
 
 INSERT INTO manutencao (date_time, machineID, compID) VALUES 
 ('2023-01-13 08:30:00', 1, 1),
@@ -141,3 +142,51 @@ INSERT INTO manutencao (date_time, machineID, compID) VALUES
 ('2023-10-06 14:45:00', 8, 8),
 ('2023-11-08 15:30:00', 9, 9),
 ('2023-11-25 16:15:00', 10, 10);
+
+----------------------------------------------------------------
+
+-- Retorna o(s) modelo(s) com maior número de falhas
+SELECT model, total_falhas
+FROM (
+    SELECT maquina.model, COUNT(*) AS total_falhas
+    FROM maquina
+    JOIN falha ON maquina.machineID = falha.machineID
+    GROUP BY maquina.model
+) AS subquery
+WHERE total_falhas = (
+    SELECT MAX(total_falhas)
+    FROM (
+        SELECT COUNT(*) AS total_falhas
+        FROM maquina
+        JOIN falha ON maquina.machineID = falha.machineID
+        GROUP BY maquina.model
+    ) AS subquery_max
+);
+
+-- Retorna o número de falhas por idade
+SELECT maquina.age, COUNT(falha.date_time) AS total_falhas 
+FROM maquina
+LEFT JOIN falha ON maquina.machineID = falha.machineID
+GROUP BY maquina.age
+ORDER BY maquina.age;
+
+-- Retorna os componentes que maior número de falhas por máquina
+SELECT maquina.machineID, maquina.model, falha.compID, comp.nome AS nome_componente, COUNT(*) AS total_falhas
+FROM maquina
+JOIN falha ON maquina.machineID = falha.machineID
+JOIN comp ON falha.compID = comp.compID
+GROUP BY maquina.machineID, falha.compID
+ORDER BY maquina.machineID, total_falhas DESC;
+
+-- Retorna a idade média das máquinas por modelo
+SELECT model, AVG(age) AS media_idade
+FROM maquina
+GROUP BY model;
+
+-- Retorna a quantidade de erro por tipo de erro e modelo da máquina
+SELECT maquina.model, erro_tipo.nome AS tipo_erro, COUNT(*) AS quantidade_erros
+FROM maquina
+JOIN erro ON maquina.machineID = erro.machineID
+JOIN erro_tipo ON erro.errorID = erro_tipo.errorID
+GROUP BY maquina.model, erro_tipo.nome
+ORDER BY maquina.model, quantidade_erros DESC;
