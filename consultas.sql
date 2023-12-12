@@ -1,20 +1,21 @@
 USE Predictive_Maintence;
 
 -- Retorna o(s) modelo(s) com maior número de falhas
-SELECT model, total_falhas
+SELECT modelo_maquina.nome , total_falhas
 FROM (
-    SELECT maquina.model, COUNT(*) AS total_falhas
+    SELECT maquina.modelID, COUNT(*) AS total_falhas
     FROM maquina
     JOIN falha ON maquina.machineID = falha.machineID
-    GROUP BY maquina.model
+    GROUP BY maquina.modelID
 ) AS subquery
+JOIN modelo_maquina ON subquery.modelID = modelo_maquina.modelID
 WHERE total_falhas = (
     SELECT MAX(total_falhas)
     FROM (
         SELECT COUNT(*) AS total_falhas
         FROM maquina
         JOIN falha ON maquina.machineID = falha.machineID
-        GROUP BY maquina.model
+        GROUP BY maquina.modelID
     ) AS subquery_max
 );
 
