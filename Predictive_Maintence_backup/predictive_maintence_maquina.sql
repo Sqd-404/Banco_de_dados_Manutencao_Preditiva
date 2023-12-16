@@ -24,9 +24,11 @@ DROP TABLE IF EXISTS `maquina`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `maquina` (
   `machineID` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `model` varchar(20) DEFAULT NULL,
+  `modelID` tinyint unsigned DEFAULT NULL,
   `age` tinyint unsigned DEFAULT NULL,
-  PRIMARY KEY (`machineID`)
+  PRIMARY KEY (`machineID`),
+  KEY `modelID` (`modelID`),
+  CONSTRAINT `maquina_ibfk_1` FOREIGN KEY (`modelID`) REFERENCES `modelo_maquina` (`modelID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -36,7 +38,7 @@ CREATE TABLE `maquina` (
 
 LOCK TABLES `maquina` WRITE;
 /*!40000 ALTER TABLE `maquina` DISABLE KEYS */;
-INSERT INTO `maquina` VALUES (1,'model3',18),(2,'model4',7),(3,'model3',8),(4,'model3',7),(5,'model3',2),(6,'model3',7),(7,'model3',20),(8,'model3',16),(9,'model4',7),(10,'model3',10);
+INSERT INTO `maquina` VALUES (1,1,18),(2,1,7),(3,3,8),(4,4,7),(5,4,2),(6,1,7),(7,2,20),(8,2,16),(9,3,7),(10,1,10);
 /*!40000 ALTER TABLE `maquina` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-09 12:11:59
+-- Dump completed on 2023-12-15 22:15:49

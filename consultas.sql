@@ -27,22 +27,22 @@ GROUP BY maquina.age
 ORDER BY maquina.age;
 
 -- Retorna os componentes que maior número de falhas por máquina
-SELECT maquina.machineID, maquina.model, falha.compID, comp.nome AS nome_componente, COUNT(*) AS total_falhas
+SELECT maquina.machineID, maquina.modelID, falha.failure_comp, comp.nome AS nome_componente, COUNT(*) AS total_falhas
 FROM maquina
 JOIN falha ON maquina.machineID = falha.machineID
-JOIN comp ON falha.compID = comp.compID
-GROUP BY maquina.machineID, falha.compID
+JOIN comp ON falha.failure_comp = comp.compID
+GROUP BY maquina.machineID, falha.failure_comp
 ORDER BY maquina.machineID, total_falhas DESC;
 
 -- Retorna a idade média das máquinas por modelo
-SELECT model, AVG(age) AS media_idade
+SELECT modelID, AVG(age) AS media_idade
 FROM maquina
-GROUP BY model;
+GROUP BY modelID;
 
 -- Retorna a quantidade de erro por tipo de erro e modelo da máquina
-SELECT maquina.model, erro_tipo.nome AS tipo_erro, COUNT(*) AS quantidade_erros
+SELECT maquina.modelID, erro_tipo.nome AS tipo_erro, COUNT(*) AS quantidade_erros
 FROM maquina
 JOIN erro ON maquina.machineID = erro.machineID
 JOIN erro_tipo ON erro.errorID = erro_tipo.errorID
-GROUP BY maquina.model, erro_tipo.nome
-ORDER BY maquina.model, quantidade_erros DESC;
+GROUP BY maquina.modelID, erro_tipo.nome
+ORDER BY maquina.modelID, quantidade_erros DESC;

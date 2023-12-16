@@ -26,7 +26,7 @@ CREATE TABLE `comp` (
   `compID` tinyint unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`compID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `comp` (
 
 LOCK TABLES `comp` WRITE;
 /*!40000 ALTER TABLE `comp` DISABLE KEYS */;
-INSERT INTO `comp` VALUES (1,'comp1'),(2,'comp2'),(3,'comp3'),(4,'comp4'),(5,'comp5'),(6,'comp6'),(7,'comp7'),(8,'comp8'),(9,'comp9'),(10,'comp10');
+INSERT INTO `comp` VALUES (1,'comp1'),(2,'comp2'),(3,'comp3'),(4,'comp4'),(5,'comp5');
 /*!40000 ALTER TABLE `comp` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-09 12:11:58
+-- Dump completed on 2023-12-15 22:15:48

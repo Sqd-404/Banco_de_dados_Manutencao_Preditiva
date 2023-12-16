@@ -26,7 +26,7 @@ CREATE TABLE `erro_tipo` (
   `errorID` tinyint unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`errorID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `erro_tipo` (
 
 LOCK TABLES `erro_tipo` WRITE;
 /*!40000 ALTER TABLE `erro_tipo` DISABLE KEYS */;
-INSERT INTO `erro_tipo` VALUES (1,'error1'),(2,'error2'),(3,'error3'),(4,'error4'),(5,'error5'),(6,'error6'),(7,'error7'),(8,'error8'),(9,'error9'),(10,'error10');
+INSERT INTO `erro_tipo` VALUES (1,'error1'),(2,'error2'),(3,'error3'),(4,'error4');
 /*!40000 ALTER TABLE `erro_tipo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-09 12:11:58
+-- Dump completed on 2023-12-15 22:15:49
